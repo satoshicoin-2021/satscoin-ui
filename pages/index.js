@@ -30,10 +30,8 @@ import abiSato from "../abi/satoshi.json";
 import NumericInput from "../components/NumericInput";
 import { usePlausible } from "next-plausible";
 
-const YFI = "0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e";
-const WOOFY = "0xD0660cD418a64a1d44E9214ad8e459324D8157f1";
-const WBTC = "0x04c282520a9191d52eAAf44fd3d50F26339a05F4";
-const SATOSHI = "0x09a8f7A6F7C4F30c18A9269E999A1f69475856E1";
+var WBTC = "0x04c282520a9191d52eAAf44fd3d50F26339a05F4";
+var SATOSHI = "0x09a8f7A6F7C4F30c18A9269E999A1f69475856E1";
 
 const TEN = new BigNumber(10);
 const MAX = new BigNumber(2).pow(256).minus(1);
@@ -45,6 +43,18 @@ export default function Home() {
 
   const plausible = usePlausible();
   const { active, account, library, provider } = useWeb3();
+
+  if(provider){
+    let chainId = provider.chainId;
+    if(chainId == 1){   //eth mainnet
+      WBTC = "0x04c282520a9191d52eAAf44fd3d50F26339a05F4";
+      SATOSHI = "0x09a8f7A6F7C4F30c18A9269E999A1f69475856E1";
+    }else{
+      WBTC = "0xe5866FbE4119B0f3ea744787fd3957D67aADD6B9";
+      SATOSHI = "0xc98E4DE692B9Aa34C60fC2a1102A1E0830320828";
+    }
+      
+  }
 
   const [userBalanceWbtc, setUserBalanceWbtc] = useState(0);
   const [userBalanceSato, setUserBalanceSato] = useState(0);

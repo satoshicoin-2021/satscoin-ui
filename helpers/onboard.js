@@ -24,7 +24,7 @@ const wallets = [
   { walletName: "status" },
   {
     walletName: "lattice",
-    appName: "Yearn Finance",
+    appName: "WBTC",
     rpcUrl,
   },
   { walletName: "walletLink", rpcUrl },

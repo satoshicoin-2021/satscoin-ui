@@ -13,21 +13,31 @@ import { shortenAddress } from "../../helpers/utils";
 import abiErc20 from "../../abi/erc20.json";
 import { formatUnits } from "../../helpers/units";
 
-const YFI = "0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e";
-const WOOFY = "0xD0660cD418a64a1d44E9214ad8e459324D8157f1";
-const WBTC = "0x04c282520a9191d52eAAf44fd3d50F26339a05F4"
+var WBTC = "0x04c282520a9191d52eAAf44fd3d50F26339a05F4";
 //"0x04c282520a9191d52eAAf44fd3d50F26339a05F4";  //bsc test 8 
 //"0xe5866FbE4119B0f3ea744787fd3957D67aADD6B9"; //bsc test 18
 //0x677ae04a5216e664a4aa7a034a56de36dccc41b0 ropsten 18
 //0x2260fac5e5542a773aa44fbcfedf7c193bc2c599 eth main net 8
-const SATOSHI = "0x09a8f7A6F7C4F30c18A9269E999A1f69475856E1"
+var SATOSHI = "0x09a8f7A6F7C4F30c18A9269E999A1f69475856E1";
 //"0x09a8f7A6F7C4F30c18A9269E999A1f69475856E1";  //bsc test 18 to bsc8
 //"0xc98E4DE692B9Aa34C60fC2a1102A1E0830320828";  //bsc test 18 to bsc18
 
 export default function Header() {
-  const { active, activate, deactivate, account, pending, library } = useWeb3();
+  const { active, activate, deactivate, account, pending, library, provider } = useWeb3();
   const [userBalanceWbtc, setUserBalanceWbtc] = useState(0);
   const [userBalanceSato, setUserBalanceSato] = useState(0);
+
+  if(provider){
+    let chainId = provider.chainId;
+    if(chainId == 1){   //eth mainnet
+      WBTC = "0x04c282520a9191d52eAAf44fd3d50F26339a05F4";
+      SATOSHI = "0x09a8f7A6F7C4F30c18A9269E999A1f69475856E1";
+    }else{
+      WBTC = "0xe5866FbE4119B0f3ea744787fd3957D67aADD6B9";
+      SATOSHI = "0xc98E4DE692B9Aa34C60fC2a1102A1E0830320828";
+    }
+      
+  }
 
   useEffect(() => {
     if (active && library && account) {
